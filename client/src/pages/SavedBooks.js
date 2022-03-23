@@ -11,11 +11,11 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Auth from '../utils/auth';
 import { removeBookId, saveBookIds } from '../utils/localStorage';
 import { GET_ME } from '../utils/queries';
-import { DELETE_BOOK } from '../utils/queries';
+import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
-  const [removeBook, { error }] = useMutation(DELETE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   // use this to determine if `useEffect()` hook needs to run again
   const userData = data?.me || [];
@@ -32,6 +32,10 @@ const SavedBooks = () => {
       const response = await removeBook({
         variables: { bookId: bookId },
       });
+      
+      if (!response) {
+        throw new Error("something went wrong!");
+      }
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
