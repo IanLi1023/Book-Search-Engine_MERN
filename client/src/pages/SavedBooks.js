@@ -15,7 +15,7 @@ import { DELETE_BOOK } from '../utils/queries';
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
-  const [deleteBook, { error }] = useMutation(DELETE_BOOK);
+  const [removeBook, { error }] = useMutation(DELETE_BOOK);
 
   // use this to determine if `useEffect()` hook needs to run again
   const userData = data?.me || [];
