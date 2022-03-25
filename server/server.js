@@ -3,7 +3,7 @@ const path = require('path');
 const db = require('./config/connection');
 const { ApolloServer } = require("apollo-server-express");
 
-const { typeDefs, resolvers } = require("./schemas");
+const { typeDefs, resolvers } = require('./schemas')
 const { authMiddleware } = require("./utils/auth");
 
 const app = express();
@@ -37,4 +37,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-startApolloServer(typeDefs, resolvers)
+startApolloServer(typeDefs, resolvers) 
