@@ -16,7 +16,7 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [ createUser, {error} ] = useMutation(ADD_USER);
+  const [ addUser, {error, data} ] = useMutation(ADD_USER);
 
   useEffect(() => {
     if (error) {
@@ -33,7 +33,6 @@ const SignupForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(userFormData)
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
@@ -43,10 +42,14 @@ const SignupForm = () => {
     }
 
     try {
-      const { data } = await createUser({
-        variables: {...userFormData },
+      // execute addUser mutation and pass in variable data from form
+      const { data } = await addUser({
+        variables: { ...userFormData}
       });
-      Auth.login(data.createUser.token);
+
+      console.log("Test");
+
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -65,8 +68,7 @@ const SignupForm = () => {
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert 
-        dismissible 
-        onClose={() => setShowAlert(false)} 
+        dismissible onClose={() => setShowAlert(false)} 
         show={showAlert} 
         variant='danger'
         >
