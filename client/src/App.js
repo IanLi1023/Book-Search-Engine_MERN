@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -39,7 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
+       
           <Navbar />
           <Routes>
             <Route exact path='/' element={<SearchBooks/>} />
@@ -50,7 +50,7 @@ function App() {
               element={<h1 className='display-2'>Wrong page!</h1>}
             />
           </Routes>
-        </>
+        
       </Router>
     </ApolloProvider>
   );
